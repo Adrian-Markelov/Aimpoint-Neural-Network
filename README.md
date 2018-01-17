@@ -23,17 +23,17 @@ General Steps to Execution:
 Setting up data_gen:
 - Variables to modify
 	- image_file: string
-			  - variable holds the file path to an indexed image that will be used either
+              * variable holds the file path to an indexed image that will be used either
 			    for training or testing
-			  - ‘/file_path/image_%d_%d.mat’
-			  - format: _%d_%d corresponds to the way data_gen.m produces data files
-			  - 1st %d indexes size of object
-			  - 2nd %d indexes angle of object
+			  * ‘/file_path/image_%d_%d.mat’
+			  * format: _%d_%d corresponds to the way data_gen.m produces data files
+			  * 1st %d indexes size of object
+			  * 2nd %d indexes angle of object
 	- centroids_file: string
-			  - variable holds the file path to all of critical points truth data
+			  * variable holds the file path to all of critical points truth data
 			    that corresponds to the input images
-			  - data: 2xm matrix where m is the size of all data and 2 corresponds to (x,y)
-			  - ‘/file_path/feature_truths.mat’ (ex. centroids)
+			  * data: 2xm matrix where m is the size of all data and 2 corresponds to (x,y)
+			  * ‘/file_path/feature_truths.mat’ (ex. centroids)
 	- num_sizes: integer
 			  - number of variations of major axis sizes of object. Must correspond to
 			    the same value as in the neural_net() script
