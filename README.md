@@ -30,29 +30,29 @@ Setting up data_gen:
         * 1st %d indexes size of object
         * 2nd %d indexes angle of object
 	- centroids_file: string
-			  * variable holds the file path to all of critical points truth data
+        * variable holds the file path to all of critical points truth data
 			    that corresponds to the input images
-			  * data: 2xm matrix where m is the size of all data and 2 corresponds to (x,y)
-			  * ‘/file_path/feature_truths.mat’ (ex. centroids)
+        * data: 2xm matrix where m is the size of all data and 2 corresponds to (x,y)
+        * ‘/file_path/feature_truths.mat’ (ex. centroids)
 	- num_sizes: integer
-			  - number of variations of major axis sizes of object. Must correspond to
+        - number of variations of major axis sizes of object. Must correspond to
 			    the same value as in the neural_net() script
 	- num_angles: integer
-			  - number of evenly distributed angles sampled from 0-360 degrees. Must 
+        - number of evenly distributed angles sampled from 0-360 degrees. Must 
 			    correspond to the same value as in the neural_net() script.
 	- height_diff: integer
-			  - the size the height will change between the generation of each new image
+        - the size the height will change between the generation of each new image
 			    for a corresponding angle starting at initial_height
 	- height_width_ratio: floating point between 0-1
-			  - scaling factor for width given the height
-			  - assuming height is major axis of pencil
+        - scaling factor for width given the height
+        - assuming height is major axis of pencil
 	- head_ratio: floating point between 0-1
-			  - scaling factor for how much of the major axis is used for the angles pointy
+        - scaling factor for how much of the major axis is used for the angles pointy
 			    section of a pencil
 	- raster_v5 variables
-		> total_radiance: keep at 5 for close to binary image
-		> output size: size of a side of the square image being generated
-		> super_sampling_factor: keep at 1 I don’t know what this does
+		- total_radiance: keep at 5 for close to binary image
+		- output size: size of a side of the square image being generated
+		- super_sampling_factor: keep at 1 I don’t know what this does
 
 
 - Steps
@@ -67,62 +67,62 @@ Setting up data_gen:
 Setting up neural_network:
 - Variables to modify
 	- training_state: boolean
-			  - true: run training algorithm and write weights to ’neural_network_file’
-			  - false: load an already generated neural network weight matrix
+        - true: run training algorithm and write weights to ’neural_network_file’
+        - false: load an already generated neural network weight matrix
 	- image_file: string
-			  - variable holds the file path to an indexed image that will be used either
+        - variable holds the file path to an indexed image that will be used either
 			    for training or testing
-			  - ‘/file_path/image_%d_%d.mat’
-			  - format: _%d_%d corresponds to the way data_gen.m produces data files
-			  - 1st %d indexes size of object
-			  - 2nd %d indexes angle of object
+        - ‘/file_path/image_%d_%d.mat’
+        - format: _%d_%d corresponds to the way data_gen.m produces data files
+        - 1st %d indexes size of object
+        - 2nd %d indexes angle of object
 	- centroids_file: string
-			  - variable holds the file path to all of critical points truth data
+        - variable holds the file path to all of critical points truth data
 			    that corresponds to the input images
-			  - data: 2xm matrix where m is the size of all data and 2 corresponds to (x,y)
-			  - ‘/file_path/feature_truths.mat’ (ex. centroids)
+        - data: 2xm matrix where m is the size of all data and 2 corresponds to (x,y)
+        - ‘/file_path/feature_truths.mat’ (ex. centroids)
 	- neural_network_file: string
-			  - variable holds the file path to a saved neural network. either one that
+        - variable holds the file path to a saved neural network. either one that
 			    already exists or one that is being written to.
-			  - ‘/file_path/neural_net.mat’
-			  - file contents: 
-				- W: weights matrix
-				- B: bias weights matrix
-				- training_avg_cost_func: cost function for training data
-				- test_avg_cost_func: cost function for test data
+        - ‘/file_path/neural_net.mat’
+        - file contents: 
+        - W: weights matrix
+        - B: bias weights matrix
+        - training_avg_cost_func: cost function for training data
+        - test_avg_cost_func: cost function for test data
 	- num_sizes: integer
-			  - number of variations of major axis sizes of object. Must correspond to
+        - number of variations of major axis sizes of object. Must correspond to
 			    the same value as in the data_gen.m script
 	- num_angles: integer
-			  - number of evenly distributed angles sampled from 0-360 degrees. Must 
+        - number of evenly distributed angles sampled from 0-360 degrees. Must 
 			    correspond to the same value as in the data_gen.m script.
 	- integral_size: integer
-			  - number of evenly distributed area segmentations made of the image along the 
+        - number of evenly distributed area segmentations made of the image along the 
 			    x and y axis individually. So a total of 2*integral_size segmentations are made
 	- image_size: integer
-			  - number of pixels of each axis of the image. As of now it assumes a square image
+        - number of pixels of each axis of the image. As of now it assumes a square image
 			    but some adjustments to integrate image and norm_2_position/ position_2_norm
 			    could change that
 	- topology: array of integers
-			  - An array that describes how many neurons are in each layer of the neural network.
-			  - layer 1: is ALWAYS 2 * integral_size. Unless you have modified that code for handling
+        - An array that describes how many neurons are in each layer of the neural network.
+        - layer 1: is ALWAYS 2 * integral_size. Unless you have modified that code for handling
 			    2D image input vector
-			  - hidden layers: only 1 is needed for relatively accurate results. The size of the input
+        - hidden layers: only 1 is needed for relatively accurate results. The size of the input
 			    layer should be orders of magnitude smaller than the training data or it will be impossible
 			    to learn the network. Ex. training set of 960 image -> 8-10 hidden neurons.
-			  - output layer: always 2 neurons (x,y) pixel of the critical point you are searching for.
-			  - note: length(topology) = number of layers in the neural network
+        - output layer: always 2 neurons (x,y) pixel of the critical point you are searching for.
+        - note: length(topology) = number of layers in the neural network
 	- iter: integer
-			  - the number of times you want to batch learn over all of the given training data set. Each
+        - the number of times you want to batch learn over all of the given training data set. Each
 			    iteration passes through all of the training data. The meaning of this number will change 
 			    if you implement another version of back-prop such of stochastic or mini-batch back-prop
 	- alpha: floating point value usually between 0-1
-			  - this is the step size of the gradient decent process. deltas will be calculated indicating
+        - this is the step size of the gradient decent process. deltas will be calculated indicating
 			    a gradient direction to minimize error, but alpha tells you how far to step in that direction.
 			    Too small and convergence will be very slow or it will get stuck in a very small local minima.
 			    Too big and it will never really converge it will just bounce around un-optimal values.
-			  - recommended value: .2-.25
-			  - improvement: you could add code to make this value smaller after you have started converging.
+        - recommended value: .2-.25
+        - improvement: you could add code to make this value smaller after you have started converging.
 			    be careful not to do this too soon or you will converge to a local minima
 - steps
 	1. Initialize all of the variables above. Especially make sure variables overlapping with data_gen have the same value.
