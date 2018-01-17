@@ -1,0 +1,10 @@
+prop time 62 micro seconds
+
+mean RMSE = 0.023
+	- 6.9 pixels
+
+network = [120 8 4 2]
+
+iter = 12,000
+
+alpha = .25
