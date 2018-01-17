@@ -10,6 +10,8 @@ email: amarkelo@andrew.cmu.edu
 Summary:
 This package is a framework being developed to track critical points of objects using a neural network. 
 
+![Example: ](https://github.com/Adrian-Markelov/Aimpoint-Neural-Network/blob/master/public_aimpoint/aimpoint_ex_img.png)
+
 General Steps to Execution:
 1. Set up the input parameters for generating data
 2. Generate Data with data_gen.m script
