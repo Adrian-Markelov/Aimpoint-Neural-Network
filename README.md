@@ -23,12 +23,12 @@ General Steps to Execution:
 Setting up data_gen:
 - Variables to modify
 	- image_file: string
-              * variable holds the file path to an indexed image that will be used either
-			    for training or testing
-			  * ‘/file_path/image_%d_%d.mat’
-			  * format: _%d_%d corresponds to the way data_gen.m produces data files
-			  * 1st %d indexes size of object
-			  * 2nd %d indexes angle of object
+        * variable holds the file path to an indexed image that will be used either
+          for training or testing
+        * ‘/file_path/image_%d_%d.mat’
+        * format: _%d_%d corresponds to the way data_gen.m produces data files
+        * 1st %d indexes size of object
+        * 2nd %d indexes angle of object
 	- centroids_file: string
 			  * variable holds the file path to all of critical points truth data
 			    that corresponds to the input images
