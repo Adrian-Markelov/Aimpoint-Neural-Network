@@ -22,34 +22,34 @@ General Steps to Execution:
 
 Setting up data_gen:
 - Variables to modify
-	> image_file: string
+	- image_file: string
 			  - variable holds the file path to an indexed image that will be used either
 			    for training or testing
 			  - ‘/file_path/image_%d_%d.mat’
 			  - format: _%d_%d corresponds to the way data_gen.m produces data files
 			  - 1st %d indexes size of object
 			  - 2nd %d indexes angle of object
-	> centroids_file: string
+	- centroids_file: string
 			  - variable holds the file path to all of critical points truth data
 			    that corresponds to the input images
 			  - data: 2xm matrix where m is the size of all data and 2 corresponds to (x,y)
 			  - ‘/file_path/feature_truths.mat’ (ex. centroids)
-	> num_sizes: integer
+	- num_sizes: integer
 			  - number of variations of major axis sizes of object. Must correspond to
 			    the same value as in the neural_net() script
-	> num_angles: integer
+	- num_angles: integer
 			  - number of evenly distributed angles sampled from 0-360 degrees. Must 
 			    correspond to the same value as in the neural_net() script.
-	> height_diff: integer
+	- height_diff: integer
 			  - the size the height will change between the generation of each new image
 			    for a corresponding angle starting at initial_height
-	> height_width_ratio: floating point between 0-1
+	- height_width_ratio: floating point between 0-1
 			  - scaling factor for width given the height
 			  - assuming height is major axis of pencil
-	> head_ratio: floating point between 0-1
+	- head_ratio: floating point between 0-1
 			  - scaling factor for how much of the major axis is used for the angles pointy
 			    section of a pencil
-	> raster_v5 variables
+	- raster_v5 variables
 		> total_radiance: keep at 5 for close to binary image
 		> output size: size of a side of the square image being generated
 		> super_sampling_factor: keep at 1 I don’t know what this does
@@ -66,22 +66,22 @@ Setting up data_gen:
 
 Setting up neural_network:
 - Variables to modify
-	> training_state: boolean
+	- training_state: boolean
 			  - true: run training algorithm and write weights to ’neural_network_file’
 			  - false: load an already generated neural network weight matrix
-	> image_file: string
+	- image_file: string
 			  - variable holds the file path to an indexed image that will be used either
 			    for training or testing
 			  - ‘/file_path/image_%d_%d.mat’
 			  - format: _%d_%d corresponds to the way data_gen.m produces data files
 			  - 1st %d indexes size of object
 			  - 2nd %d indexes angle of object
-	> centroids_file: string
+	- centroids_file: string
 			  - variable holds the file path to all of critical points truth data
 			    that corresponds to the input images
 			  - data: 2xm matrix where m is the size of all data and 2 corresponds to (x,y)
 			  - ‘/file_path/feature_truths.mat’ (ex. centroids)
-	> neural_network_file: string
+	- neural_network_file: string
 			  - variable holds the file path to a saved neural network. either one that
 			    already exists or one that is being written to.
 			  - ‘/file_path/neural_net.mat’
@@ -90,20 +90,20 @@ Setting up neural_network:
 				- B: bias weights matrix
 				- training_avg_cost_func: cost function for training data
 				- test_avg_cost_func: cost function for test data
-	> num_sizes: integer
+	- num_sizes: integer
 			  - number of variations of major axis sizes of object. Must correspond to
 			    the same value as in the data_gen.m script
-	> num_angles: integer
+	- num_angles: integer
 			  - number of evenly distributed angles sampled from 0-360 degrees. Must 
 			    correspond to the same value as in the data_gen.m script.
-	> integral_size: integer
+	- integral_size: integer
 			  - number of evenly distributed area segmentations made of the image along the 
 			    x and y axis individually. So a total of 2*integral_size segmentations are made
-	> image_size: integer
+	- image_size: integer
 			  - number of pixels of each axis of the image. As of now it assumes a square image
 			    but some adjustments to integrate image and norm_2_position/ position_2_norm
 			    could change that
-	> topology: array of integers
+	- topology: array of integers
 			  - An array that describes how many neurons are in each layer of the neural network.
 			  - layer 1: is ALWAYS 2 * integral_size. Unless you have modified that code for handling
 			    2D image input vector
@@ -112,11 +112,11 @@ Setting up neural_network:
 			    to learn the network. Ex. training set of 960 image -> 8-10 hidden neurons.
 			  - output layer: always 2 neurons (x,y) pixel of the critical point you are searching for.
 			  - note: length(topology) = number of layers in the neural network
-	> iter: integer
+	- iter: integer
 			  - the number of times you want to batch learn over all of the given training data set. Each
 			    iteration passes through all of the training data. The meaning of this number will change 
 			    if you implement another version of back-prop such of stochastic or mini-batch back-prop
-	> alpha: floating point value usually between 0-1
+	- alpha: floating point value usually between 0-1
 			  - this is the step size of the gradient decent process. deltas will be calculated indicating
 			    a gradient direction to minimize error, but alpha tells you how far to step in that direction.
 			    Too small and convergence will be very slow or it will get stuck in a very small local minima.
